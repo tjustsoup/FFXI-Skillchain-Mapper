@@ -1,0 +1,72 @@
+.xiv-btn {
+  position: relative;
+  /* Needed for overlay effects */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  /* Ensures rounding applies to children */
+  background-size: cover;
+  background-position: center;
+  background-color: hsla(215, 20%, 65%, 0.3);
+  box-shadow:
+    var(--btn-shadow),
+    0 5px 5px hsla(0, 0%, 0%, 0.35);
+}
+
+.xiv-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: hsla(215, 20%, 65%, 0.1);
+  /* Overlay */
+  transition: background-color 100ms;
+}
+
+.xiv-btn:hover {
+  box-shadow:
+    var(--btn-shadow),
+    0 3px 3px hsla(0, 0%, 0%, 0.3);
+}
+
+.xiv-btn:hover::after {
+  background-color: hsla(215, 20%, 65%, 0.2);
+}
+
+.xiv-btn:active {
+  transition-duration: 0ms;
+  box-shadow:
+    var(--btn-shadow),
+    0 1px 1px hsla(0, 0%, 0%, 0.3);
+}
+
+.xiv-btn:active::after {
+  transition-duration: 0ms;
+  background-color: hsla(215, 0%, 20%, 0.3);
+}
+
+.ripple {
+  transform: scale(0);
+  /* animation: ripple 800ms cubic-bezier(0.2, 0.4, 0.7, 1); */
+  animation: ripple 650ms cubic-bezier(0.3, 0, 0.2, 1);
+  background: radial-gradient(circle,
+      rgba(255, 255, 255, 0.35) 0%,
+      rgba(255, 255, 255, 0.25) 50%,
+      rgba(255, 255, 255, 0) 100%);
+  border-radius: 50%;
+  position: absolute;
+  /* Optimization */
+  will-change: transform, opacity; 
+}
+
+@keyframes ripple {
+  from {
+    opacity: 1;
+    transform: scale(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(8);
+  }
+}
