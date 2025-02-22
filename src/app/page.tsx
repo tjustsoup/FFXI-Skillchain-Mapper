@@ -1,14 +1,15 @@
 'use client';
 import React, { useEffect } from "react";
-import { Background, BackgroundVariant, Node, ReactFlow, useEdgesState, useNodesState } from "@xyflow/react";
+import { Background, BackgroundVariant, Node, NodeTypes, ReactFlow, useEdgesState, useNodesState } from "@xyflow/react";
 import '@xyflow/react/dist/style.css';
 // Custom
 import { Skillchains } from "../data/skillchains";
-import { SkillchainNode, XIVButton } from "./libs/components";
+import { SkillchainNode } from "./libs/components";
 import { b_13, b_18, b_19, b_24 } from "./libs/icons";
+import { A1, A2, A3 } from "@/data/types";
 
-const nodeTypes = {
-  custom: SkillchainNode
+const nodeTypes: NodeTypes = {
+  Skillchain: SkillchainNode
 }
 
 export default function Home() {
@@ -18,7 +19,15 @@ export default function Home() {
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 
   /* Handlers */
-  function addNode() {
+  function updateNode(id: string, data: any) {
+    setNodes((prev) => prev.map((p) => {
+      if (p.id === id) {
+        return { ...p, data }
+      }
+      return p
+    }))
+  }
+  function addNode(attribute: "" | A1 | A2 | A3) {
     // Get id
     let id = nodes.length
     nodes.sort((a, b) => {
@@ -34,12 +43,18 @@ export default function Home() {
 
     let newNode = {
       id: id.toString(),
-      type: "custom",
-      data: {},
+      type: "Skillchain",
+      data: {
+        attribute: attribute
+      },
       position: { x: 0, y: 0 },
     }
-    setNodes([...nodes, newNode])
+
+    console.log(id)
+    console.log(newNode)
+    setNodes((prev) => [...prev, newNode])
   }
+
   // function onNodesChange(e: any) {
   //   console.log(e)
   // }
@@ -50,20 +65,12 @@ export default function Home() {
     console.log(e)
   }
 
+  useEffect(() => addNode(""), [])
   // useEffect(() => console.log(nodes), [nodes])
 
   return (
     <div className="h-screen w-screen bg-slate-700">
       <div className="fixed flex gap-2 z-50 left-1/2 -translate-x-1/2 bottom-4">
-        {arr.map((v, i) => (
-          <XIVButton
-            key={i}
-            twcss={`h-24 w-24 rounded-md`}
-            // url={b_19.default.src}
-            url={v.default.src}
-            onClick={() => addNode()}
-          />
-        ))}
       </div>
       <ReactFlow
         nodes={nodes}
