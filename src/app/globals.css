@@ -32,8 +32,6 @@
 }
 
 :root {
-  --btn-inset: hsla(50, 30%, 90%, 0.5);
-  --btn-shadow: inset 0 -2px 2px var(--btn-inset), inset 0 5px 5px var(--btn-inset);
   --background: hsl(0 0% 100%);
   --foreground: hsl(222.2 84% 4.9%);
   --card: hsl(0 0% 100%);

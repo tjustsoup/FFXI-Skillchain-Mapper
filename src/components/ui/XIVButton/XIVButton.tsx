@@ -36,10 +36,10 @@ export default function XIVButton(props: {
 
   return (
     <button
-      className={`${props.twcss ? props.twcss : ""} xiv-btn`}
+      {...props}
+      className={`xiv-btn rounded-md px-1 py-0.5 ${props.twcss ? props.twcss : ""}`}
       style={props.url ? { backgroundImage: `url(${props.url})` } : {}}
       onMouseUp={createRipple}
-      {...props}
     >
       {props.children}
     </button>
